@@ -1,0 +1,146 @@
+@media screen and (min-width: 640px){
+  #mscreen720 {
+    display: flex;
+  }
+
+  #showNowArea {
+    width: 45%;
+  }
+  
+  #fixedArea {
+    width: 55%;
+  }
+}
+
+body {
+  background-color: #aaaaaa;
+  margin: 0px;
+}
+
+header {
+  background-color: DimGray;
+  text-align: left;
+  height:  90px;
+  /*position: fixed; top: 0; left: 0;*/
+}
+
+main {
+  background-color: #D6C6AF;
+  padding-top:10px;
+  padding-bottom:0px;
+}
+
+footer {
+  background-color:DimGray;
+  height: 150px;
+}
+
+#logo {
+  height: 80px;
+  width: 160px;
+  padding-top: 5px;
+  padding-left: 5px;
+}
+
+#topMessage {
+  border: solid;
+  text-align: center;
+}
+
+#mscreen720 {
+  
+}
+
+#showNowArea {
+  border: solid;
+  height: 400px;
+  padding: 20px;
+}
+
+#fixedArea {
+  border: solid;
+  height: 400px;
+  padding: 20px;
+}
+
+#inputArea {
+  border: solid;
+  padding: 10px;
+}
+
+.textRight{
+  text-align: right;
+}
+
+input {
+  background-color:Cornsilk;
+  accent-color:Cornsilk;
+} 
+
+select{
+  background-color:Cornsilk;
+}
+
+.c-clock {
+  position: relative;
+  top: -20px;
+  width: 100px;
+  height: 100px;
+  border: 1px solid #333;
+  border-radius: 50%;
+}
+.c-clock__hour {
+  position: absolute;
+  top: calc(50% - 37.5px);
+  left: calc(50% - 2px);
+  width: 2px;
+  height: 37.5px;
+  background: #333;
+  transform-origin: bottom;
+}
+.c-clock__min {
+  position: absolute;
+  top: calc(50% - 45px);
+  left: calc(50% - 1px);
+  width: 1px;
+  height: 45px;
+  background: #333;
+  transform-origin: bottom;
+}
+.c-clock__sec {
+  position: absolute;
+  top: calc(50% - 50px);
+  left: calc(50% - 1px);
+  width: 1px;
+  height: 50px;
+  background: #ff0000;
+  transform-origin: bottom;
+}
+.c-clock__12 {
+  position: absolute;
+  top: 10px;
+  left: calc(50%);
+  transform: translateX(-50%);
+  font-size: 9px;
+}
+.c-clock__3 {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  font-size: 9px;
+}
+.c-clock__6 {
+  position: absolute;
+  bottom: 10px;
+  left: calc(50%);
+  transform: translateX(-50%);
+  font-size: 9px;
+}
+.c-clock__9 {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  font-size: 9px;
+}
