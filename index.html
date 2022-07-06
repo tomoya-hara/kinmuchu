@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>勤務中</title>
+  <link rel="stylesheet" type="text/css" href="css/default.css" />
+  <script type="text/javascript" src="./jquery-3.5.1.js"></script>
+  <script type="text/javascript" src="js/Script.js"></script>
+  <script type="text/javascript">
+  </script>
+</head>
+
+<body style="margin:0px;">
+  <header>
+    <a href="index.html"><img src="img/logo.JPG" id="logo"></a>
+  </header>
+  <main>
+    <div id="topMessage">
+      <h1>お仕事お疲れ様です！</h1>
+    </div>
+    <div id="mscreen720">
+      <div id="showNowArea">
+        <div id="showNowMessages1">
+          <div id="showNowMessage1_1">現在の時刻</div>
+          <div id="showNowMessage1_2" class="textRight"></div>
+          <div id="showNowMessage1_3" class="textRight"></div>
+          <div class="c-clock">
+            <span class="c-clock__hour"></span> <!-- 時計 -->
+            <span class="c-clock__min"></span> <!-- 分針 -->
+            <span class="c-clock__sec"></span> <!-- 秒針 -->
+            <span class="c-clock__12">12</span> <!-- 時計文字 -->
+            <span class="c-clock__3">3</span> <!-- 時計文字 -->
+            <span class="c-clock__6">6</span> <!-- 時計文字 -->
+            <span class="c-clock__9">9</span> <!-- 時計文字 -->
+          </div>
+        </div>
+        <div id="tubst">
+          <div id="tubst1">本日の休憩時間まで残り</div>
+          <div id="tubst2" class="textRight"></div>
+        </div>
+        <div id="tujet">
+          <div id="tujet1">本日の勤務終了まで残り</div>
+          <div id="tujet2" class="textRight"></div>
+        </div>
+        <div id="tupd">
+          <div id="tupd1">次の給料日まで残り</div>
+          <div id="tupd2" class="textRight"></div>
+        </div>
+        <div id="showNowMessages2">
+          <div id="showNowMessage2_1">本日の獲得金額</div>
+          <div id="showNowMessage2_2" class="textRight"></div>
+          <div id="showNowMessage2_3">合計獲得金額</div>
+          <div id="showNowMessage2_4" class="textRight"></div>
+        </div>
+      </div>
+
+      <div id="fixedArea">
+        <div id="fixedMessages">
+          <div id="fixedMessages1">
+            <div id="fixedMessage1_1">あなたの日給</div>
+            <div id="fixedMessage1_2" class="textRight"></div>
+            <div id="fixedMessage1_3">あなたの時給</div>
+            <div id="fixedMessage1_4" class="textRight"></div>
+            <div id="fixedMessage1_5"></div>
+            <div id="fixedMessage1_6" class="textRight"></div>
+            <div id="fixedMessage1_7">次の給料日までの残り日数(今日を含む)</div>
+            <div id="fixedMessage1_8" class="textRight"></div>
+            <div id="fixedMessage1_9"></div>
+            <div id="fixedMessage1_10" class="textRight"></div>
+            <div id="fixedMessage1_11">勤務終了日数</div>
+            <div id="fixedMessage1_12" class="textRight"></div>
+            <div id="fixedMessage1_13">次の給料日までの勤務日数(今日を含む)</div>
+            <div id="fixedMessage1_14" class="textRight"></div>
+            <div id="fixedMessage1_15">昨日までの獲得合計金額</div>
+            <div id="fixedMessage1_16" class="textRight"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+    <div id="inputArea">
+      <p>入力エリア(未実装)</p>
+      <form action="index.html">
+        <p><input type="submit" value="更新する"></p>
+        <p>
+          <label for="name">月給</label><br />
+          <input type="text" id="salary" name="salary" value="201000" pattern="^[0-9]+$" step="1" />
+        </p>
+        <p>
+          <label for="payday">給料日</label><br />
+          <select id="payday" name="payday">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21" selected>21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+            <option value="31">31</option>
+          </select>
+        </p>
+        <p>
+          <label for="oyasumi">お休み日数</label><br />
+          <input type="number" id="oyasumi" name="oyasumi" value="0" size="2" />
+        </p>
+        <p>
+          <label for="shukuzitsu">祝日お休み</label><br />
+          <input type="checkbox" id="shukuzitsu" name="shukuzitsu" checked />
+        </p>
+        <p>
+          お休み日<br />
+          <input type="checkbox" id="sun" name="yobi" value="0" checked />
+          <label for="sun">日曜日</label>
+          <input type="checkbox" id="mon" name="yobi" value="1" />
+          <label for="mon">月曜日</label>
+          <input type="checkbox" id="tue" name="yobi" value="2" />
+          <label for="tue">火曜日</label>
+          <input type="checkbox" id="wed" name="yobi" value="3" />
+          <label for="wed">水曜日</label>
+          <input type="checkbox" id="thu" name="yobi" value="4" />
+          <label for="thu">木曜日</label>
+          <input type="checkbox" id="fri" name="yobi" value="5" />
+          <label for="fri">金曜日</label>
+          <input type="checkbox" id="sat" name="yobi" value="6" checked />
+          <label for="sat">土曜日</label>
+        </p>
+        <p>
+          始業時間<br />
+          <input type="time" id="jobStart" name="jobStart" value="08:30">
+        </p>
+        <p>
+          就業時間<br />
+          <input type="time" id="jobEnd" name="jobEnd" value="17:30">
+        </p>
+        <p>
+          休憩開始時間<br />
+          <input type="time" id="breakStart" name="breakStart" value="12:00">
+        </p>
+        <p>
+          休憩終了時間<br />
+          <input type="time" id="breakEnd" name="breakEnd" value="13:00">
+        </p>
+
+      </form>
+    </div>
+  </main>
+  <footer>
+    <h2>
+    </h2>
+  </footer>
+</body>
+
+</html>
