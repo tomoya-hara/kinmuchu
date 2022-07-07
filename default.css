@@ -91,10 +91,10 @@ select{
 }
 .c-clock__hour {
   position: absolute;
-  top: calc(50% - 37.5px);
+  top: calc(50% - 35px);
   left: calc(50% - 2px);
-  width: 2px;
-  height: 37.5px;
+  width: 3px;
+  height: 35px;
   background: #333;
   transform-origin: bottom;
 }
@@ -109,10 +109,10 @@ select{
 }
 .c-clock__sec {
   position: absolute;
-  top: calc(50% - 50px);
+  top: calc(50% - 48px);
   left: calc(50% - 1px);
   width: 1px;
-  height: 50px;
+  height: 48px;
   background: #ff0000;
   transform-origin: bottom;
 }

@@ -114,9 +114,8 @@ var breakEndMinute = 0;
 var breakTime = (breakEndHour - breakStartHour) * 60 - breakStartMinute + breakEndMinute;
 
 //前回の給料日から次の給料日までに平日がお休みだった日数
-//祝日判定クラスを実装予定
 //System.out.println("前回の給料日から次の給料日までに平日がお休みだった日数を入力（祝日や有休など）");
-var weekdayHolidays = 0; 
+var weekdayHolidays = 1; 
 
 var cal = new Date();
 var year = cal.getFullYear();
@@ -361,15 +360,15 @@ var cal2 = new Date();
 var count = 0;
 var week = 0;
 if(day < payday){
-    var cal2 = new Date(year, month - 2, i);
     for(var i = payday; i <= ldoflm; i++){
+        var cal2 = new Date(year, month - 2, i);
         week = cal2.getDay();
         if(week != 0 && week != 6){
             count++;
         }
     }
-    var cal2 = new Date(year, month - 1, i);
     for(var i = 1; i < day; i++){
+        var cal2 = new Date(year, month - 1, i);
         week = cal2.getDay();
         if(week != 0 && week != 6){
             count++;
@@ -377,8 +376,8 @@ if(day < payday){
     }
     return count;
 }else {
-    var cal2 = new Date(year, month - 1, i);
     for(var i = payday; i < day; i++){
+        var cal2 = new Date(year, month - 1, i);
         week = cal2.getDay();
         if(week != 0 && week != 6){
             count++;
