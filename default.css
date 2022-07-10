@@ -53,13 +53,13 @@ footer {
 
 #showNowArea {
   border: solid;
-  height: 400px;
+  height: 420px;
   padding: 20px;
 }
 
 #fixedArea {
   border: solid;
-  height: 400px;
+  height: 420px;
   padding: 20px;
 }
 
@@ -79,6 +79,14 @@ input {
 
 select{
   background-color:Cornsilk;
+}
+
+button{
+  background-color:Cornsilk;
+}
+
+#showNowMessage2_5 {
+  font-size: x-small;
 }
 
 .c-clock {

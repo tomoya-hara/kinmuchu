@@ -4,6 +4,19 @@ $(function () {
     showNow();
     fixed();
     setInterval('showNow()', 1000);
+    //
+    $('#salary').val(params.get('salary'))
+    $('#payday').val(params.get('payday'))
+    $('#alreadyHolidays').val(params.get('alreadyHolidays'))
+    $('#yetHolidays').val(params.get('yetHolidays'))
+    $('#jobStartHour').val(params.get('jobStartHour'))
+    $('#jobStartMinute').val(params.get('jobStartMinute'))
+    $('#jobEndHour').val(params.get('jobEndHour'))
+    $('#jobEndMinute').val(params.get('jobEndMinute'))
+    $('#breakStartHour').val(params.get('breakStartHour'))
+    $('#breakStartMinute').val(params.get('breakStartMinute'))
+    $('#breakEndHour').val(params.get('breakEndHour'))
+    $('#breakEndMinute').val(params.get('breakEndMinute'))
 });
 
 function showNow(){
@@ -35,6 +48,7 @@ function showNow(){
     total += secondsSalaryRound;
     $('#showNowMessage2_2').html((Math.floor(todaysTotal * 100) / 100) + "円");
     $('#showNowMessage2_4').html((Math.floor(total * 100) / 100) + "円");
+    $('#showNowMessage2_5').html("＋" + (Math.floor(secondsSalaryRound * 1000) / 1000) + "円/秒");
 
     const degH = nowHour * (360 / 12) + nowMinute * (360 / 12 / 60);
     const degM = nowMinute * (360 / 60);
@@ -77,45 +91,51 @@ if(day != payday){
     $('#fixedMessage1_14').html(WorkingDaysFromTodayToNextPayday + "日");
 }
 
-$('#fixedMessage1_16').html((Math.floor(salaryToThePreviousDay * 100) / 100) + "円");
+$('#fixedMessage1_16').html((Math.floor(salaryToThePreviousDay * 10000) / 10000) + "円");
 }
 
+var params = (new URL(document.location)).searchParams;
+
 //給料
-var salary = 201000;
+var salary = params.get('salary');
 
 //給料日
-var payday = 21;
+var payday = params.get('payday');
 
 //仕事開始時間
-var jobStartHour = 8;
+var jobStartHour = params.get('jobStartHour');
 
 //仕事開始分
-var jobStartMinute = 30;
+var jobStartMinute = params.get('jobStartMinute');
 
 //仕事終了時間
-var jobEndHour = 17;
+var jobEndHour = params.get('jobEndHour');
 
 //仕事終了分
-var jobEndMinute = 30;
+var jobEndMinute = params.get('jobEndMinute');
 
 //休憩開始時間
-var breakStartHour = 12;
+var breakStartHour = params.get('breakStartHour');
 
 //休憩開始分
-var breakStartMinute = 0;
+var breakStartMinute = params.get('breakStartMinute');
 
 //休憩終了時間
-var breakEndHour = 13;
+var breakEndHour = params.get('breakEndHour');
 
 //休憩終了分
-var breakEndMinute = 0;
+var breakEndMinute = params.get('breakEndMinute');
 
 //休憩合計分
-var breakTime = (breakEndHour - breakStartHour) * 60 - breakStartMinute + breakEndMinute;
+var breakTime = breakTimes(breakEndHour, breakStartHour, breakStartMinute, breakEndMinute);
 
-//前回の給料日から次の給料日までに平日がお休みだった日数
-//System.out.println("前回の給料日から次の給料日までに平日がお休みだった日数を入力（祝日や有休など）");
-var weekdayHolidays = 1; 
+//前回の給料日から次の給料日までの休日日数
+var alreadyHolidays = params.get('alreadyHolidays');
+var yetHolidays = params.get('yetHolidays');
+var holidays = plusfunc(alreadyHolidays, yetHolidays);
+
+//
+var yobi = params.get('yobi');
 
 var cal = new Date();
 var year = cal.getFullYear();
@@ -144,26 +164,27 @@ var daysUntilPayday = daysUntilPayday(ldoftm, day, payday);
 var daysFromLastPaydayToToday = daysFromLastPaydayToToday(ldoflm, day, payday);
 
 //前回の給料日から今日までの勤務日数
-var daysWorkedFromLastPaydayToToday = daysWorkedFromLastPaydayToToday(day, month, payday, ldoflm);
+var daysWorkedFromLastPaydayToToday = daysWorkedFromLastPaydayToToday(day, month, payday, ldoflm) - alreadyHolidays;
 
 //前回の給料日から次の給料日までの勤務日数
-var daysWorked = daysWorked(year, month, day, payday, ldoftm, ldoflm) - weekdayHolidays;
+var daysWorked = daysWorked(year, month, day, payday, ldoftm, ldoflm) - holidays;
 
 //今日から次の給料日までの勤務日数
 var WorkingDaysFromTodayToNextPayday = daysWorked - daysWorkedFromLastPaydayToToday;
+
+
 
 //前日までの合計獲得金額
 var salaryToThePreviousDay = (salary * daysWorkedFromLastPaydayToToday) / daysWorked;
 
 //一日の合計勤務分
 var jobHour = jobEndHour - jobStartHour;
-var jobMinute = jobHour * 60 - jobStartMinute + jobEndMinute - breakTime;
-
+var jobMinute = jobMinutes(jobHour, jobStartMinute, jobEndMinute, breakTime);
 //一日の合計勤務秒
 var jobSeconds = jobMinute * 60;
 
 //今日の勤務秒
-var todaysWorkingSecond = todaysWorkingSecond(hour, minute, jobSeconds, jobStartHour, jobStartMinute, jobEndHour, jobEndMinute, breakStartHour, breakStartMinute, breakEndHour, breakEndMinute);
+var todaysWorkingSeconds = todaysWorkingSecond(hour, minute, jobSeconds, jobStartHour, jobStartMinute, jobEndHour, jobEndMinute, breakStartHour, breakStartMinute, breakEndHour, breakEndMinute);
 
 //前回の給料日から次の給料日までの秒数
 var monthSeconds = daysWorked * jobMinute * 60; //変更予定
@@ -192,12 +213,27 @@ if(runTime && runDay){
 }
 
 //本日の合計獲得金額
-var todaysTotal = todaysWorkingSecond * secondsSalaryRound;
+var todaysTotal = todaysWorkingSeconds * secondsSalaryRound;
 
 //現在までの合計獲得金額
 var total = salaryToThePreviousDay;
 if(week != 0 && week != 6){
     total += (todaysTotal);
+}
+
+//二項の足し算関数
+function plusfunc(a, b){
+    return parseInt(a) + parseInt(b);
+}
+
+//一日の休憩時間
+function breakTimes(breakEndHour, breakStartHour, breakStartMinute, breakEndMinute){
+    return time = (breakEndHour - Number(breakStartHour)) * 60 - breakStartMinute + Number(breakEndMinute);
+}
+
+//一日の合計分
+function jobMinutes(jobHour, jobStartMinute, jobEndMinute, breakTime){
+    return time = (jobHour * 60) + Number(jobEndMinute) - Number(jobStartMinute) - Number(breakTime);
 }
 
 //給料日までの残り日数
@@ -215,7 +251,7 @@ if(hour < breakStartHour || (hour == breakStartHour && minute <= breakStartMinut
     if(minute < breakStartMinute){
         $('#tubst2').html((breakStartHour - hour) + "時間" + (breakStartHour - 1 - minute) + "分" + (59 - second) + "秒");
     }else{
-        $('#tubst2').html((breakStartHour - 1 - hour) + "時間" + (59 - minute + breakStartMinute) + "分" + (59 - second) + "秒");
+        $('#tubst2').html((breakStartHour - 1 - hour) + "時間" + (59 - minute + Number(breakStartMinute)) + "分" + (59 - second) + "秒");
     }
 }else{
     $('#tubst2').html("---------");
@@ -227,7 +263,7 @@ function timeUntilJobEndTime(hour, minute, second , jobEndHour, jobEndMinute){
 if(minute < jobEndMinute){
     $('#tujet2').html((jobEndHour - hour) + "時間" + (jobEndMinute - 1 - minute) + "分" + (59 - second) + "秒");
 }else{
-    $('#tujet2').html((jobEndHour - 1 - hour) + "時間" + (59 - minute + jobEndMinute) + "分" + (59 - second) + "秒");
+    $('#tujet2').html((jobEndHour - 1 - hour) + "時間" + (59 - minute + Number(jobEndMinute)) + "分" + (59 - second) + "秒");
 }
 }
 
@@ -249,22 +285,22 @@ if(day < payday){
 function workingTimeJudgment(hour, minute, jobStartHour, jobStartMinute, jobEndHour, jobEndMinute,  breakStartHour, breakStartMinute, breakEndHour, breakEndMinute){
 if(hour >= jobStartHour && hour <= jobEndHour){
     if(hour == jobStartHour && minute < jobStartMinute){
-        System.out.println("勤務開始前です");
+        $('#topMessage1_3').html("勤務開始前です");
         return false;
     }else if(hour == jobEndHour && minute >= jobEndMinute){
-        System.out.println("勤務終了後です");
+        $('#topMessage1_3').html("勤務終了後です");
         return false;
     }else if((hour == breakStartHour && minute >= breakStartMinute) || (hour == breakEndHour && minute < breakEndMinute)){
-        System.out.println("休憩時間です");
+        $('#topMessage1_3').html("休憩時間です");
         return false;
     }else {
         return true;
     }
 }else if(hour < jobStartHour){
-    System.out.println("勤務開始前です");
+    $('#topMessage1_3').html("勤務開始前です");
     return false;
 }else if(hour > jobEndHour){
-    System.out.println("勤務終了後です");
+    $('#topMessage1_3').html("勤務終了後です");
     return false;
 }else {
     return true;
@@ -282,8 +318,8 @@ if(week == 0 || week == 6){
 
 //今日の勤務時間秒を計算するメソッド
 function  todaysWorkingSecond( hour, minute, jobSeconds, jobStartHour, jobStartMinute, jobEndHour, jobEndMinute, breakStartHour, breakStartMinute, breakEndHour, breakEndMinute){
-amSecond = ((breakStartHour - jobStartHour) * 60 - jobStartMinute + breakStartMinute) * 60;
-pmSecond = ((jobEndHour - breakEndHour) * 60 + jobEndMinute - breakEndMinute) * 60;
+var amSecond = ((breakStartHour - jobStartHour) * 60 - jobStartMinute + Number(breakStartMinute)) * 60;
+var pmSecond = ((jobEndHour - breakEndHour) * 60 + Number(jobEndMinute) - breakEndMinute) * 60;
 if(hour >= jobStartHour && hour <= jobEndHour){
     if(hour == jobStartHour && minute < jobStartMinute){
         return 0;
